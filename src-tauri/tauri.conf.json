@@ -5,9 +5,9 @@
   "identifier": "CGOL.com",
   "build": {
     "beforeDevCommand": "npm run dev",
-    "devUrl": "http://localhost:1420",
+    "devUrl": "http://localhost:5173",
     "beforeBuildCommand": "npm run build",
-    "frontendDist": "../dist"
+    "frontendDist": "../frontend/dist"
   },
   "app": {
     "withGlobalTauri": true,
