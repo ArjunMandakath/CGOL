@@ -2,8 +2,10 @@ import React, { useState, useCallback, useRef } from 'react';
 import './App.css';
 
 /// Define grid dimensions.
-const numRows: number = 30;
-const numCols: number = 30;
+const numRows: number = 100;
+const numCols: number = 100;
+const maxAge: number = 10; 
+
 
 /// Relative positions of the eight neighbors.
 const operations: [number, number][] = [
@@ -49,23 +51,29 @@ const App: React.FC = () => {
               newI < numRows &&
               newJ >= 0 &&
               newJ < numCols
-            ) {
-              neighbors += g[newI][newJ];
-            }
+            ) {if (g[newI][newJ] > 0) neighbors++}
           });
-          /// Apply Conway’s rules:
-          /// Underpopulation or overpopulation.
-          if (cell === 1 && (neighbors < 2 || neighbors > 3)) return 0;
-          /// Reproduction.
-          if (cell === 0 && neighbors === 3) return 1;
-          /// Otherwise, remain the same.
-          return cell;
+
+          // Apply Game of Life rules with age tracking:
+          if (cell > 0) {
+            if (neighbors < 2 || neighbors > 3) return 0; // Dies
+            return Math.min(cell + 1, maxAge); // Ages up to maxAge
+          } else {
+            if (neighbors === 3) return 1; // Becomes alive
+            return 0; // Stays dead
+          }
         })
       )
     );
-    /// Adjust simulation speed (100ms interval here).
+    ///simulation speed
     setTimeout(runSimulation, 100);
   }, []);
+
+  const getColor = (age: number) => {
+    if (age === 0) return '#303030'; // White for dead cells
+    const intensity = Math.floor((age / maxAge) * 255); // Map age to intensity
+    return `rgb(${255 - intensity}, ${100 + intensity}, ${150 + intensity})`; // Color gradient
+  };
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -112,7 +120,7 @@ const App: React.FC = () => {
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: cell ? 'pink' : undefined,
+                backgroundColor:  getColor(cell),
                 border: '1px solid #999',
               }}
             />
