@@ -54,13 +54,13 @@ const App: React.FC = () => {
             ) {if (g[newI][newJ] > 0) neighbors++}
           });
 
-          // Apply Game of Life rules with age tracking:
+          ///Life Rules 
           if (cell > 0) {
-            if (neighbors < 2 || neighbors > 3) return 0; // Dies
-            return Math.min(cell + 1, maxAge); // Ages up to maxAge
+            if (neighbors < 2 || neighbors > 3) return 0; /// Death
+            return Math.min(cell + 1, maxAge); /// Increment Age 
           } else {
-            if (neighbors === 3) return 1; // Becomes alive
-            return 0; // Stays dead
+            if (neighbors === 3) return 1; ///Conception
+            return 0; /// Remain Dead 
           }
         })
       )
@@ -70,9 +70,9 @@ const App: React.FC = () => {
   }, []);
 
   const getColor = (age: number) => {
-    if (age === 0) return '#303030'; // White for dead cells
-    const intensity = Math.floor((age / maxAge) * 255); // Map age to intensity
-    return `rgb(${255 - intensity}, ${100 + intensity}, ${150 + intensity})`; // Color gradient
+    if (age === 0) return '#303030';
+    const intensity = Math.floor((age / maxAge) * 255); /// Map age to intensity
+    return `rgb(${255 - intensity}, ${100 + intensity}, ${150 + intensity})`; /// Color gradient
   };
 
   return (
