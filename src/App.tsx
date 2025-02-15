@@ -2,8 +2,8 @@ import React, { useState, useCallback, useRef } from 'react';
 import './App.css';
 
 /// Define grid dimensions.
-const numRows: number = 100;
-const numCols: number = 100;
+const numRows: number = 50;
+const numCols: number = 50;
 const maxAge: number = 10; 
 
 
@@ -78,21 +78,6 @@ const App: React.FC = () => {
   return (
     <div style={{ textAlign: 'center' }}>
       <h1>Conway's Game of Life</h1>
-      <div style={{ marginBottom: '1rem' }}>
-        <button
-          onClick={() => {
-            setRunning(!running);
-            if (!running) {
-              runningRef.current = true;
-              runSimulation();
-            }
-          }}
-          style={{ marginRight: '1rem' }}
-        >
-          {running ? 'Stop' : 'Start'}
-        </button>
-        <button onClick={() => setGrid(generateEmptyGrid())}>Clear</button>
-      </div>
       {/* Render the grid as a set of clickable cells */}
       <div
         style={{
@@ -127,6 +112,36 @@ const App: React.FC = () => {
           ))
         )}
       </div>
+
+
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          backgroundColor: '#303030',
+          padding: '1rem',
+          boxShadow: '0 -2px 5px rgba(0,0,0,0.2)',
+          textAlign: 'center',
+        }}
+      >
+        <button
+          onClick={() => {
+            setRunning(!running);
+            if (!running) {
+              runningRef.current = true;
+              runSimulation();
+            }
+          }}
+          style={{ marginRight: '1rem' }}
+        >
+          {running ? 'Stop' : 'Start'}
+        </button>
+        <button onClick={() => setGrid(generateEmptyGrid())}>Clear</button>
+      </div>
+
+
     </div>
   );
 };
