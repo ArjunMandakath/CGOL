@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react'
 /// Define grid dimensions.
-const numRows: number = 50;
-const numCols: number = 50;
+const numRows: number = 30;
+const numCols: number = 30;
 const maxAge: number = 10; 
 /// Relative positions of the eight neighbors.
 const operations: [number, number][] = [
