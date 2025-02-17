@@ -10,10 +10,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ running, onStartStop, onCle
   return (
     <div> 
       <h1>Conway's Game Of Life</h1>
-      <button onClick={onStartStop} style={{ marginRight: '1rem' }}>
+      <button onClick={onStartStop} style={{ marginLeft: '5px',marginRight: '5px' }}>
         {running ? 'Stop' : 'Start'}
       </button>
-      <button onClick={onClear}>Clear</button>
+      <button onClick={onClear} style={{ marginLeft: '5px',marginRight: '5px' }}>
+        Clear
+      </button>
     </div>
   );
 };

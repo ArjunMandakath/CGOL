@@ -1,14 +1,18 @@
 import React from 'react';
 import { LogicModule } from './GameLogic';
 ///Global 
-const cellSize: number = 20 
 ///Grid Type 
 interface GridProps {
   grid: number[][];
   onCellClick: (i: number, j: number) => void;
+  numRows: number;
+  numCols: number;
+  containerSize: number; 
 }
 ///Grid Component 
-const Grid: React.FC<GridProps> = ({ grid, onCellClick }) => {
+const Grid: React.FC<GridProps> = ({ grid, onCellClick, numRows, numCols, containerSize }) => {
+  const cellSize = Math.floor(containerSize / Math.max(numRows, numCols)); // Dynamically adjust size
+
   return (
     <div 
       style={{
@@ -20,10 +24,10 @@ const Grid: React.FC<GridProps> = ({ grid, onCellClick }) => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: `repeat(${LogicModule.numCols}, minmax(0, 1fr))`, 
-          gridTemplateRows: `repeat(${LogicModule.numRows}, minmax(0, 1fr))`,  
-          width: `${LogicModule.numCols * (cellSize + 1)}px`,  
-          height: `${LogicModule.numRows * (cellSize + 1)}px`, 
+          gridTemplateColumns: `repeat(${numCols}, minmax(0, 1fr))`, 
+          gridTemplateRows: `repeat(${numRows}, minmax(0, 1fr))`,  
+          width: `${numCols * (cellSize + 1)}px`,  
+          height: `${numRows * (cellSize + 1)}px`, 
           justifyContent: 'center',
           alignContent: 'center',
         }}
